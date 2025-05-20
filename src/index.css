@@ -1,0 +1,158 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+body {
+    background-color: #212123;
+  }
+
+  /* Анимация раскрытия навигации */
+.nav-list-enter {
+  max-height: 0;
+  opacity: 0;
+  transition: max-height 0.35s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.2s;
+  overflow: hidden;
+}
+.nav-list-enter-active {
+  max-height: 600px;
+  opacity: 1;
+}
+.nav-list-exit {
+  max-height: 600px;
+  opacity: 1;
+  transition: max-height 0.35s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.2s;
+  overflow: hidden;
+}
+.nav-list-exit-active {
+  max-height: 0;
+  opacity: 0;
+}
+
+/* Анимация смены вопросов в квизе */
+.quiz-slide-enter {
+  opacity: 0;
+  transform: translateX(60px);
+  position: absolute;
+  width: 100%;
+}
+.quiz-slide-enter-active {
+  opacity: 1;
+  transform: translateX(0);
+  transition: all 350ms cubic-bezier(.4,2,.3,1);
+}
+.quiz-slide-exit {
+  opacity: 1;
+  transform: translateX(0);
+  position: absolute;
+  width: 100%;
+}
+.quiz-slide-exit-active {
+  opacity: 0;
+  transform: translateX(-60px);
+  transition: all 350ms cubic-bezier(.4,2,.3,1);
+}
+.quiz-question-wrapper {
+  position: relative;
+  min-height: 200px;
+}
+
+
+/* Сияние для блока достижения */
+.achievement-glow-block {
+  border-radius: 1rem; /* Совпадает с rounded-2xl */
+  position: relative;
+  animation: achievementGlow 5s ease-in-out infinite;
+  /* Несколько теней для объёма */
+  box-shadow:
+    0 0 0px 0px rgba(255, 221, 51, 0.18), /* начальное состояние */
+    0 0 16px 2px rgba(255, 221, 51, 0.11);
+  transition: box-shadow 0.5s;
+}
+
+@keyframes achievementGlow {
+  0% {
+    box-shadow:
+      0 0 0px 0px rgba(255, 221, 51, 0.18),
+      0 0 16px 2px rgba(255, 221, 51, 0.11);
+  }
+  40% {
+    box-shadow:
+      0 0 20px 3px rgba(255, 221, 51, 0.40),
+      0 0 28px 7px rgba(255, 221, 51, 0.21);
+  }
+  50% {
+    box-shadow:
+      0 0 26px 6px rgba(255, 221, 51, 0.50),
+      0 0 40px 16px rgba(255, 221, 51, 0.18);
+  }
+  60% {
+    box-shadow:
+      0 0 20px 3px rgba(255, 221, 51, 0.40),
+      0 0 28px 7px rgba(255, 221, 51, 0.21);
+  }
+  100% {
+    box-shadow:
+      0 0 0px 0px rgba(255, 221, 51, 0.18),
+      0 0 16px 2px rgba(255, 221, 51, 0.11);
+  }
+}
+
+
+@keyframes gradientMove {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
+}
+
+
+@keyframes shine {
+  0% {
+    background-position: -120% 0;
+    opacity: 0;
+  }
+  5% {
+    opacity: 1;
+  }
+  40% {
+    background-position: 120% 0;
+    opacity: 1;
+  }
+  60% {
+    background-position: 120% 0;
+    opacity: 0;
+  }
+  100% {
+    background-position: 120% 0;
+    opacity: 0;
+  }
+}
+
+.shine-effect {
+  position: relative;
+  overflow: hidden;
+}
+
+.shine-effect::after {
+  content: "";
+  position: absolute;
+  top: 0; left: 0; right: 0; bottom: 0;
+  background: linear-gradient(
+    100deg,
+    rgba(255,255,255,0) 0%,
+    rgba(255,255,255,0.2) 38%,
+    rgba(255,255,255,0.65) 50%,
+    rgba(255,255,255,0.2) 62%,
+    rgba(255,255,255,0) 100%
+  );
+  background-size: 250% 100%;
+  background-repeat: no-repeat;
+  animation: shine 4s linear infinite;
+  pointer-events: none;
+  z-index: 2;
+  border-radius: inherit;
+}
