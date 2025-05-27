@@ -7,6 +7,9 @@ import { doc, getDoc, updateDoc } from "firebase/firestore";
 import { db } from "../../firebase";
 import { calculateCourseProgress } from "../../lib/calculateCourseProgress";
 import { courseStructure } from "../Courses/FinalCutProXZero/courseStructure";
+import { subscribeToUserPracticeStatuses } from "../../lib/practiceSubmissions";
+import { subscribeToUserTaskStatuses } from "../../lib/taskSubmissions";
+import { subscribeToUserQuizStatuses } from "../../lib/quizResults";
 
 export default function ProfileCourses() {
   const [userId, setUserId] = useState(null);
@@ -14,6 +17,9 @@ export default function ProfileCourses() {
   const [loading, setLoading] = useState(true);
   const [showEnrolled, setShowEnrolled] = useState(false);
   const [shine, setShine] = useState(false);
+  const [practiceStatuses, setPracticeStatuses] = useState({});
+  const [taskStatuses, setTaskStatuses] = useState({});
+  const [quizStatuses, setQuizStatuses] = useState({});
   const navigate = useNavigate();
 
   // Показывать уведомление если флаг в localStorage
@@ -45,6 +51,19 @@ export default function ProfileCourses() {
     return () => unsubscribe();
   }, []);
 
+  useEffect(() => {
+    if (!userId) return;
+    const unsubPractices = subscribeToUserPracticeStatuses(userId, setPracticeStatuses);
+    const unsubTasks = subscribeToUserTaskStatuses(userId, setTaskStatuses);
+    const unsubQuizzes = subscribeToUserQuizStatuses(userId, setQuizStatuses);
+
+    return () => {
+      unsubPractices();
+      unsubTasks();
+      unsubQuizzes();
+    };
+  }, [userId]);
+
   const progress = userCourses && userCourses.progress && userCourses.progress["fcpx-zero"];
   
   useEffect(() => {
@@ -73,15 +92,12 @@ export default function ProfileCourses() {
   if (userCourses && userCourses.progress && userCourses.progress["fcpx-zero"]) {
     const fcpxProgress = userCourses.progress["fcpx-zero"];
     const visitedSections = fcpxProgress?.visitedSections || [];
-    const fcpxPracticeStatuses = userCourses.practiceStatuses || {};
-    const fcpxTaskStatuses = userCourses.taskStatuses || {};
-    const fcpxQuizStatuses = userCourses.quizStatuses || {};
     progressData = calculateCourseProgress({
       courseStructure,
       visitedSections,
-      practiceStatuses: fcpxPracticeStatuses,
-      taskStatuses: fcpxTaskStatuses,
-      quizStatuses: fcpxQuizStatuses,
+      practiceStatuses,
+      taskStatuses,
+      quizStatuses,
     });
   }
 

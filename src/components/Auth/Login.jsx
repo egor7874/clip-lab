@@ -15,12 +15,12 @@ export default function Login() {
     e.preventDefault();
     setErrorMessages([]);
     try {
-      await signInWithEmailAndPassword(auth, email, password);
-      // Успешный вход, делай редирект!
-      window.location.href = "/profile"; // или твой путь
+      await signInWithEmailAndPassword(auth, email, password);  
+
+      window.location.href = "/profile"; // Успешный вход, делай редирект!
     } catch (err) {
       let msg = "";
-      // Firebase v11+ часто возвращает только этот код!
+ 
       if (
         err.code === "auth/user-not-found" ||
         err.code === "auth/wrong-password" ||
