@@ -1,5 +1,3 @@
-
-
 import forumImage from "../../assets/image15.png";
 
 export default function ForumPreview() {

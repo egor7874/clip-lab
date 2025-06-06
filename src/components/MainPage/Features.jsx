@@ -38,7 +38,7 @@ export default function Features() {
 
   return (
     <section className="bg-[#212123] text-white font-inter px-6 py-20 md:px-20">
-      <div className="max-w-7xl mx-auto text-center">
+      <div className="max-w-7xl mx-auto text-left">
         <h2 className="text-3xl md:text-4xl lg:text-5xl font-black mb-12">
           Что делает платформу{" "}
           <span className="text-[#FADF4B]">интерактивной?</span>
