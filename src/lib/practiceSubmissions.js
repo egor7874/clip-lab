@@ -35,7 +35,7 @@ export function subscribeToUserPracticeStatuses(userId, callback) {
     const statuses = {};
     snapshot.forEach(doc => {
       const { practiceId, status, comment = "" } = doc.data();
-      statuses[practiceId] = { status, comment }; // <-- исправлено!
+      statuses[practiceId] = { status, comment };
     });
     callback(statuses);
   });

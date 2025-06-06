@@ -2,7 +2,6 @@ import React from "react";
 import ReactDOM from "react-dom/client";
 import { BrowserRouter, Routes, Route, Navigate, Outlet } from "react-router-dom";
 
-// Основные страницы
 import MainPage from "./components/MainPage/MainPage.jsx";
 import CoursesPage from "./components/CoursesPage/CoursesPage.jsx";
 import CourseFinalCut from "./components/CourseFinalCut/CourseFinalCut";

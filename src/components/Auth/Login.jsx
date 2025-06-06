@@ -17,7 +17,7 @@ export default function Login() {
     try {
       await signInWithEmailAndPassword(auth, email, password);  
 
-      window.location.href = "/profile"; // Успешный вход, делай редирект!
+      window.location.href = "/profile";                            // Успешный вход, делай редирект!
     } catch (err) {
       let msg = "";
  
